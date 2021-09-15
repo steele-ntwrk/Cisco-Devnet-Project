@@ -1,0 +1,49 @@
+from netmiko import ConnectHandler
+from getpass import getpass
+
+platform = 'paloalto_panos'
+host_A = '10.10.28.4'
+host_B = '10.10.28.5'
+username = 'netutility'
+password = 'imsofuckingrock'
+Interface_A, Desc_A, Network_A, = [], [], []
+
+command_str = 'show interface all | match ae'
+
+device_A = ConnectHandler(device_type=platform, ip=host_A, username=username, password=password)
+output_A = device_A.send_command(command_str)
+
+line_count = 0
+
+for line_A in output_A.splitlines():
+    line_count += 1
+    word_count = 0
+    word_str = line_A.split()
+    words = len(line_A.split())
+    if words >= 7:  # we have a usable line
+        for word_A in word_str:
+            word_count += 1
+            if word_count == 1:
+                Interface_A.append(word_A)
+            if word_count == 4:
+                Desc_A.append(word_A)
+            if (words == 7) and (word_count == 7):
+                Network_A.append(word_A)
+                break
+            if (words == 8) and (word_count == 8):
+                Network_A.append(word_A)
+                break
+            if (words == 9) and (word_count == 9):
+                Network_A.append(word_A)
+                break
+    else:
+        print('IGNORED', word_str)
+        line_count -= 1
+
+f = open("A:\\GeoffPrime\\WorkDocs\\PaloAlto-Scrape.txt", "w")
+for i in range(0, line_count):
+    print(Interface_A[i], Desc_A[i], Network_A[i])
+    f.write(Interface_A[i] + ' ' + Desc_A[i] + ' ' + Network_A[i] + '\n')
+
+device_A.disconnect()
+f.close()
