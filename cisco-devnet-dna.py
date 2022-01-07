@@ -46,3 +46,16 @@ def get_url(url):
 
 def list_network_devices():
     return get_url("network-device")
+
+def main ():
+    
+    network_device = list_network_devices()
+    
+    #print(network_device)
+  
+    
+    for device in network_device['response']: 
+        print(device['id'], device['managementIpAddress'])
+
+if __name__ == "__main__":
+    main()
