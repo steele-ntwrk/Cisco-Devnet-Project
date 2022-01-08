@@ -44,8 +44,39 @@ def get_url(url):
 
     return response.json()
 
+def post_url(url):
+    url = create_url(path=url)
+    print(url)
+    token = get_auth_token()
+    headers = {'X-auth-token' : token['token']}
+    try:
+        response = requests.post(url, headers=headers, verify=False, body=body)
+    except requests.exceptions.RequestException as cerror:
+        print("Error processing request", cerror)
+        sys.exit(1)
+    
+    return response.json()
+
 def list_network_devices():
     return get_url("network-device")
+
+def get_create_network_device():
+    cliTransport = input("Enter cliTransport method = ")
+    enablePassword = input("Enter enablePassword: ")
+    [ipAddress] = input("Enter ip address: ")
+    password = input("Enter Password: ")
+    snmpAuthPassphrase = input("Enter SNMP Passphrase: ")
+    snmpAuthProtocol = "v2"
+    snmpMode = "v2"
+    snmpPrivPassphrase = input("Enter SNMP Passphrase: ")
+    snmpPrivProtocol = "v2"
+    snmpROCommunity = input("Enter SNMP RO Comm: ")
+    snmpRWCommunity = input("Enter SNMP Rw Comm: ")
+
+    
+body = get_create_network_device
+
+
 
 def main ():
     
