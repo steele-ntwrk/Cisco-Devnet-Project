@@ -63,7 +63,7 @@ def list_network_devices():
 def get_create_network_device():
     cliTransport = input("Enter cliTransport method = ")
     enablePassword = input("Enter enablePassword: ")
-    [ipAddress] = input("Enter ip address: ")
+    ipAddress = input("Enter ip address: ")
     password = input("Enter Password: ")
     snmpAuthPassphrase = input("Enter SNMP Passphrase: ")
     snmpAuthProtocol = "v2"
@@ -72,9 +72,22 @@ def get_create_network_device():
     snmpPrivProtocol = "v2"
     snmpROCommunity = input("Enter SNMP RO Comm: ")
     snmpRWCommunity = input("Enter SNMP Rw Comm: ")
-
     
-body = get_create_network_device
+    body = {
+        "cliTransport":cliTransport,
+        "enablePassword":enablePassword,
+        "ipAddress":[ipAddress],
+        "password":password,
+        "snmpAuthPassphrase":snmpAuthPassphrase,
+        "snmpAuthProtocol":snmpAuthProtocol,
+        "snmpMode":snmpMode,
+        "snmpPrivPassphrase": snmpPrivPassphrase,
+        "snmpPrivProtocol": snmpPrivProtocol,
+        "snmpROCommunity": snmpROCommunity,
+        "snmpRWCommunity": snmpRWCommunity,
+    }
+    
+    json_body = json.loads(body)
 
 
 
