@@ -30,6 +30,35 @@ def create_url(path, controller_ip=DNAC):
 
     return "https://%s:%s/api/v1/%s" % (controller_ip, DNAC_PORT, path)
 
+def get_create_network_device():
+    cliTransport = input("Enter cliTransport method = ")
+    enablePassword = input("Enter enablePassword: ")
+    ipAddress = input("Enter ip address: ")
+    password = input("Enter Password: ")
+    snmpAuthPassphrase = input("Enter SNMP Auth Passphrase: ")
+    snmpAuthProtocol = "v2"
+    snmpMode = "AuthPriv"
+    snmpPrivPassphrase = input("Enter SNMP Priv Passphrase: ")
+    snmpPrivProtocol = "v2"
+    snmpROCommunity = input("Enter SNMP RO Comm: ")
+    snmpRWCommunity = input("Enter SNMP Rw Comm: ")
+    
+    body = {
+        "cliTransport":cliTransport,
+        "enablePassword":enablePassword,
+        "ipAddress":[ipAddress],
+        "password":password,
+        "snmpAuthPassphrase":snmpAuthPassphrase,
+        "snmpAuthProtocol":snmpAuthProtocol,
+        "snmpMode":snmpMode,
+        "snmpPrivPassphrase": snmpPrivPassphrase,
+        "snmpPrivProtocol": snmpPrivProtocol,
+        "snmpROCommunity": snmpROCommunity,
+        "snmpRWCommunity": snmpRWCommunity,
+    }
+    
+    json_body = json.dumps(body)
+
 def get_url(url):
     
     url = create_url(path=url)
@@ -50,7 +79,7 @@ def post_url(url):
     token = get_auth_token()
     headers = {'X-auth-token' : token['token']}
     try:
-        response = requests.post(url, headers=headers, verify=False, body=body)
+        response = requests.post(url, headers=headers, verify=False, body=get_create_network_device)
     except requests.exceptions.RequestException as cerror:
         print("Error processing request", cerror)
         sys.exit(1)
@@ -60,34 +89,12 @@ def post_url(url):
 def list_network_devices():
     return get_url("network-device")
 
-def get_create_network_device():
-    cliTransport = input("Enter cliTransport method = ")
-    enablePassword = input("Enter enablePassword: ")
-    ipAddress = input("Enter ip address: ")
-    password = input("Enter Password: ")
-    snmpAuthPassphrase = input("Enter SNMP Passphrase: ")
-    snmpAuthProtocol = "v2"
-    snmpMode = "v2"
-    snmpPrivPassphrase = input("Enter SNMP Passphrase: ")
-    snmpPrivProtocol = "v2"
-    snmpROCommunity = input("Enter SNMP RO Comm: ")
-    snmpRWCommunity = input("Enter SNMP Rw Comm: ")
+
     
-    body = {
-        "cliTransport":cliTransport,
-        "enablePassword":enablePassword,
-        "ipAddress":[ipAddress],
-        "password":password,
-        "snmpAuthPassphrase":snmpAuthPassphrase,
-        "snmpAuthProtocol":snmpAuthProtocol,
-        "snmpMode":snmpMode,
-        "snmpPrivPassphrase": snmpPrivPassphrase,
-        "snmpPrivProtocol": snmpPrivProtocol,
-        "snmpROCommunity": snmpROCommunity,
-        "snmpRWCommunity": snmpRWCommunity,
-    }
+    #datatype = type(json_body)
     
-    json_body = json.loads(body)
+    #print(datatype)
+    #print(body)
 
 
 
