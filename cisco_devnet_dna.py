@@ -43,7 +43,7 @@ def get_create_network_device():
     snmpROCommunity = input("Enter SNMP RO Comm: ")
     snmpRWCommunity = input("Enter SNMP Rw Comm: ")
     
-    body = {
+    get_body = {
         "cliTransport":cliTransport,
         "enablePassword":enablePassword,
         "ipAddress":[ipAddress],
@@ -57,7 +57,9 @@ def get_create_network_device():
         "snmpRWCommunity": snmpRWCommunity,
     }
     
-    json_body = json.dumps(body)
+    return json.dumps(get_body)
+
+body = get_create_network_device
 
 def get_url(url):
     
