@@ -12,7 +12,7 @@ HEADERS = {
 }
 
 
-def get_orgs(cloud_url=base_url, key_in=key):
+def get_orgs(cloud_url=base_url):
     """Returns list of orgs from Meraki Sandbox"""
 
     org_url = f"{cloud_url}/organizations"
@@ -32,7 +32,7 @@ def get_orgs(cloud_url=base_url, key_in=key):
     print(org_table)
 
 
-def get_networks(cloud_url=base_url, key_in=key):
+def get_networks(cloud_url=base_url):
     """Returns list of network for an organization"""
 
     input_org = input(
@@ -61,7 +61,7 @@ def get_networks(cloud_url=base_url, key_in=key):
     print(network_table)
 
 
-def get_devices(cloud_url=base_url, key_in=key):
+def get_devices(cloud_url=base_url):
     """Returns list of network devices in a network"""
 
     input_network = input(
