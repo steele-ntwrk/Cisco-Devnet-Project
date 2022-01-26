@@ -61,7 +61,7 @@ def get_networks(cloud_url=base_url):
     print(network_table)
 
 
-def get_devices(cloud_url=base_url):
+def get_devices(cloud_url=base_url, key_in=key):
     """Returns list of network devices in a network"""
 
     input_network = input(
