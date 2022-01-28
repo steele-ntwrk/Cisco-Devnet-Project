@@ -33,4 +33,10 @@ def get_client_list(Controller_ip=base_url):
         
     return client_list.json()
 
-print(get_client_list) 
+if __name__ == "__main__":
+    
+    print(get_access_token())
+    
+    get_client_list()
+    
+    
